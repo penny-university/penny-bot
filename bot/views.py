@@ -8,7 +8,11 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.clickjacking import xframe_options_exempt
 
-from .processors import GreetingBotModule, Bot, Event
+from penny_bot.bot.processors.greeting import GreetingBotModule
+from penny_bot.bot.processors.base import (
+    Bot,
+    Event,
+)
 
 slack = Slacker(settings.SLACKER_KEY)
 

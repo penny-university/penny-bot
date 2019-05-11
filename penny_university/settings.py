@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'penny_university.urls'
+ROOT_URLCONF = 'penny_bot.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'penny_university.wsgi.application'
+WSGI_APPLICATION = 'penny_bot.wsgi.application'
 
 
 # Database
