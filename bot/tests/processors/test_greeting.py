@@ -1,5 +1,5 @@
-from penny_university.bot.processors.base import Event
-from penny_university.bot.processors.greeting import GreetingBotModule
+from penny_bot.bot.processors.base import Event
+from penny_bot.bot.processors.greeting import GreetingBotModule
 
 
 def test_greeting(mocker):

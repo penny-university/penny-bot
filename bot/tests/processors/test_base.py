@@ -1,4 +1,4 @@
-from penny_university.bot.processors.base import (
+from penny_bot.bot.processors.base import (
     Bot,
     Event,
     BotModule,
