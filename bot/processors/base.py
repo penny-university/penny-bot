@@ -44,32 +44,3 @@ class BotModule(EventProcessor):
         methods = [member for member in members if callable(member)]
         for method in methods:
             method(event)
-
-
-@event_filter_factory
-def in_room(room):
-    def filter_func(event):
-        return event['channel'] == room
-
-    return filter_func
-
-
-@event_filter_factory
-def is_event_type(type):
-    def filter_func(event):
-        return event['subtype'] == type
-
-    return filter_func
-
-
-class GreetingBotModule(BotModule):
-    def __init__(self, slack):
-        self.slack = slack
-        self.existing_users = []
-
-    @in_room('CHCM2MFHU')
-    @is_event_type('channel_join')
-    def welcome_user(self, event):
-        if event['user'] not in self.existing_users:
-            self.slack.chat.post_message(event['user'], 'Welcome to Penny U!')
-            self.existing_users.append(event['user'])

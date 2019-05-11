@@ -1,10 +1,11 @@
-from bot.processors import Bot, GreetingBotModule, Event
+from penny_university.bot.processors.base import Event
+from penny_university.bot.processors.greeting import GreetingBotModule
 
 
 def test_greeting(mocker):
     slack = mocker.Mock()
     greeter = GreetingBotModule(slack)
-    bot = Bot(event_processors=[greeter])
+    GreetingBotModule.GREETING_MESSAGE = 'welcome'
     event = Event({
         "user": "U42HCBFEF",
         "type": "message",
@@ -15,14 +16,13 @@ def test_greeting(mocker):
         "event_ts": "1557281569.001300",
         "channel_type": "channel"
     })
-    bot(event)
-    assert slack.chat.post_message.call_args == mocker.call('U42HCBFEF', 'Welcome to Penny U!')
+    greeter(event)
+    assert slack.chat.post_message.call_args == mocker.call('U42HCBFEF', GreetingBotModule.GREETING_MESSAGE)
 
 
 def test_greeting_wrong_channel(mocker):
     slack = mocker.Mock()
     greeter = GreetingBotModule(slack)
-    bot = Bot(event_processors=[greeter])
     event = Event({
         "user": "U42HCBFEF",
         "type": "message",
@@ -33,14 +33,13 @@ def test_greeting_wrong_channel(mocker):
         "event_ts": "1557281569.001300",
         "channel_type": "channel"
     })
-    bot(event)
+    greeter(event)
     assert not slack.chat.post_message.called
 
 
 def test_greeting_wrong_type(mocker):
     slack = mocker.Mock()
     greeter = GreetingBotModule(slack)
-    bot = Bot(event_processors=[greeter])
     event = Event({
         "user": "U42HCBFEF",
         "type": "message",
@@ -51,5 +50,5 @@ def test_greeting_wrong_type(mocker):
         "event_ts": "1557281569.001300",
         "channel_type": "channel"
     })
-    bot(event)
+    greeter(event)
     assert not slack.chat.post_message.called
